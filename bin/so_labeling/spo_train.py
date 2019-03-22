@@ -23,7 +23,7 @@ import os
 import time
 import sys
 import argparse
-import ConfigParser
+import configparser
 
 import paddle
 import paddle.fluid as fluid
@@ -100,8 +100,8 @@ def train(conf_dict, data_reader, use_cuda=False):
                 cost_sum += cost
                 cost_counter += 1
                 if batch_id % 10 == 0 and batch_id != 0:
-                    print >> sys.stderr, "batch %d finished, second per batch: %02f" % (
-                        batch_id, (time.time() - start_time) / batch_id)
+                    print("batch %d finished, second per batch: %02f" % (
+                        batch_id, (time.time() - start_time) / batch_id), file=sys.stderr)
 
                 # cost expected, training over
                 if float(cost) < 1:
@@ -113,8 +113,8 @@ def train(conf_dict, data_reader, use_cuda=False):
 
             # save the model once each pass ends
             pass_avg_cost = cost_sum / cost_counter if cost_counter > 0 else 0.0
-            print >> sys.stderr, "%d pass end, cost time: %02f, avg_cost: %f" % (
-                    pass_id, time.time() - pass_start_time, pass_avg_cost)
+            print("%d pass end, cost time: %02f, avg_cost: %f" % (
+                    pass_id, time.time() - pass_start_time, pass_avg_cost), file=sys.stderr)
             save_path = os.path.join(save_dirname, 'pass_%04d-%f' %
                                     (pass_id, pass_avg_cost))
             fluid.io.save_inference_model(save_path, ['word_data', 'token_pos', 'p_word'],

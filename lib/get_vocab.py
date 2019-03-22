@@ -20,23 +20,23 @@ This module to generate vocabulary list
 
 import random
 import os
-import codecs
 import sys
 import json
-reload(sys)
-sys.setdefaultencoding('utf-8')
+import imp
+imp.reload(sys)
 
 def load_word_file(f_input):
     """
     Get all words in files
     :param string: input file
+    :return file_words counts words
     """
     file_words = {}
-    with codecs.open(f_input, 'r', 'utf-8') as fr:
+    with open(f_input, 'r', encoding='utf-8') as fr:
         words = []
         for line in fr:
             try:
-                dic = json.loads(line.decode('utf-8').strip())
+                dic = json.loads(line.strip())
                 postag = dic['postag']
                 words = [item["word"].strip() for item in postag]
             except:
@@ -63,23 +63,24 @@ def get_vocab(train_file, dev_file):
             word_dic[word] += dev_word_dic[word]
         else:
             word_dic[word] = dev_word_dic[word]
-    print '<UNK>'
+    outfile = open(r'D:/projects/information-extraction/dict/word_idx.dict', 'w+', encoding='utf-8')
+    print('<UNK>', file=outfile)
     vocab_set = set()
-    value_list = sorted(word_dic.iteritems(), key=lambda d:d[1], reverse=True)
+    value_list = sorted(iter(word_dic.items()), key=lambda d:d[1], reverse=True)
     for word in value_list[:30000]:
-        print word[0]
+        print(word[0], file=outfile)
         vocab_set.add(word[0])
 
     #add predicate in all_50_schemas
     if not os.path.exists('./data/all_50_schemas'):
         raise ValueError("./data/all_50_schemas not found.")
-    with codecs.open('./data/all_50_schemas', 'r', 'utf-8') as fr:
+    with open('./data/all_50_schemas', 'r', encoding='utf-8') as fr:
         for line in fr:
-            dic = json.loads(line.decode('utf-8').strip())
+            dic = json.loads(line.strip())
             p = dic['predicate']
             if p not in vocab_set:
                 vocab_set.add(p)
-                print p
+                print(p, file=outfile)
 
     
 if __name__ == '__main__':

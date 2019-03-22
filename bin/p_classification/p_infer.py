@@ -22,7 +22,7 @@ import json
 import os
 import sys
 import argparse
-import ConfigParser
+import configparser
 import math
 
 import numpy as np
@@ -90,7 +90,7 @@ def infer_a_batch(label_scores, input_data, result_writer, data_reader):
     """Infer the results of a batch"""
     for sent_idx, label in enumerate(label_scores):
         p_label = []
-        label = map(float, label)
+        label = list(map(float, label))
         for p_idx, p_score in enumerate(label):
             if sigmoid(p_score) > 0.5:
                 p_label.append(data_reader.get_label_output(p_idx))

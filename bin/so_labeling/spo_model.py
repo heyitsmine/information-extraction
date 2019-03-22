@@ -22,7 +22,7 @@ import json
 import os
 import sys
 import argparse
-import ConfigParser
+import configparser
 
 import paddle
 import paddle.fluid as fluid
