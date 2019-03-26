@@ -157,7 +157,7 @@ class DataReader(object):
     def _is_valid_input_data(self, input_line):
         """is the input data valid"""
         try:
-            dic, p = input_line.strip().decode('utf-8').split('\t')
+            dic, p = input_line.strip().split('\t')
             dic = json.loads(dic)
         except:
             return False
@@ -174,7 +174,7 @@ class DataReader(object):
         if not self._is_valid_input_data(line):
             print('Format is error', file=sys.stderr)
             return None
-        dic, p = line.strip().decode('utf-8').split('\t')
+        dic, p = line.strip().split('\t')
         dic = json.loads(dic)
         sentence = dic['text']
         sentence_term_list = [item['word'] for item in dic['postag']]
@@ -218,7 +218,7 @@ class DataReader(object):
                             continue
                         yield tuple(sample_result)
             elif os.path.isfile(data_path):
-                for line in open(data_path.strip()):
+                for line in open(data_path.strip(), encoding='utf-8'):
                     sample_result = self._get_feed_iterator(line, need_input, need_label)
                     if sample_result is None:
                         continue
