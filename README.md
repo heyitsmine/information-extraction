@@ -34,8 +34,8 @@ The trained p-classification model will be saved in the folder ```./model/p_mode
 After getting the predicates that exist in the sentence, a sequence labeling model is trained to identify the s-o pairs corresponding to the relation that appear in the sentence. </br>
 Before training the so-labeling model, you need to prepare the training data that meets the training model format to train a so-labeling model.
 ```
-python lib/get_spo_train.py  ./data/train_data.json > ./data/train_data.p
-python lib/get_spo_train.py  ./data/dev_data.json > ./data/dev_data.p
+python lib/get_spo_train.py  ./data/train_data.json  ./data/train_data.p
+python lib/get_spo_train.py  ./data/dev_data.json  ./data/dev_data.p
 ```
 To train a so labeling model, you can run:
 ```
