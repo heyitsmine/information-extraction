@@ -22,7 +22,7 @@ cd -
 ### Step 3: Get the vocabulary file
 Obtain high frequency words from the field ‘postag’ of training and dev data, then compose these high frequency words into a vocabulary list.
 ```
-python lib/get_vocab.py ./data/train_data.json ./data/dev_data.json ./dict/word_idx
+python lib/get_vocab.py ./data/train_data.json ./data/dev_data.json ./dict/word_idx.dict
 ```
 ### Step 4: Train p-classification model
 First, the classification model is trained to identify predicates in sentences. Note that if you need to change the default hyper-parameters, e.g. hidden layer size or whether to use GPU for training (By default, CPU training is used), etc. Please modify the specific argument in ```./conf/IE_extraction.conf```, then run the following command:
