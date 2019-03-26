@@ -27,17 +27,17 @@ def get_p(input_file, output_file):
     """
     Generate training data for so labeling model
     """
-    outfile = open(r'D:/projects/information-extraction/dict/word_idx.dict', 'w+', encoding='utf-8')
+    outfile = open(output_file, 'w+', encoding='utf-8')
     with open(input_file, 'r', encoding='utf-8') as fr:
         for line in fr:
             try:
-                dic = json.loads(line.decode('utf-8').strip())
+                dic = json.loads(line.strip())
             except:
                 continue
             spo_list = dic['spo_list']
             p_list = [item['predicate'] for item in spo_list]
             for p in p_list:
-                print("\t".join([json.dumps(dic, ensure_ascii=False), p]).encode('utf-8'), file=outfile)
+                print("\t".join([json.dumps(dic, ensure_ascii=False), p]), file=outfile)
 
 
 if __name__ == '__main__':
