@@ -46,7 +46,7 @@ def load_word_file(f_input):
     return file_words
 
 
-def get_vocab(train_file, dev_file):
+def get_vocab(train_file, dev_file, output_file):
     """
     Get vocabulary file from the field 'postag' of files
     :param string: input train data file
@@ -63,7 +63,7 @@ def get_vocab(train_file, dev_file):
             word_dic[word] += dev_word_dic[word]
         else:
             word_dic[word] = dev_word_dic[word]
-    outfile = open(r'D:/projects/information-extraction/dict/word_idx.dict', 'w+', encoding='utf-8')
+    outfile = open(output_file, 'w+', encoding='utf-8')
     print('<UNK>', file=outfile)
     vocab_set = set()
     value_list = sorted(iter(word_dic.items()), key=lambda d:d[1], reverse=True)
@@ -86,4 +86,5 @@ def get_vocab(train_file, dev_file):
 if __name__ == '__main__':
     train_file = sys.argv[1]
     dev_file = sys.argv[2]
-    get_vocab(train_file, dev_file)
+    output_file = sys.argv[3]
+    get_vocab(train_file, dev_file, output_file)
